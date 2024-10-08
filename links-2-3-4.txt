@@ -1,0 +1,3 @@
+сюда можно скидывать всю релевантную инфу по проекту (ссылки, идеи, итд)
+
+https://developers.sber.ru/docs/ru/jazz/sdk/web/overview

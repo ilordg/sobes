@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="/docs/5.3/assets/js/color-modes.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title th:text="${title}"/>
+    <style>
+        /* Установка высоты для элемента main */
+        html, body {
+            overflow: hidden; /* Запрет прокрутки */
+            height: 100%; /* Занимает всю высоту страницы */
+            margin: 0; /* Убираем отступы */
+            font-family: Arial, sans-serif;
+            color: white; /* Белый текст */
+            user-select: none; /* Запрет выделения текста */
+        }
+        main {
+            display: flex;
+            flex-direction: column; /* Располагаем дочерние элементы вертикально */
+            height: 96%;
+        }
+        header {
+            background-color: #343a40; /* Темный фон для заголовка */
+            box-shadow: 0 4px 2px -2px gray; /* Тень для заголовка */
+            height: 4%;
+        }
+        .navbar {
+            display: flex; /* Гибкое управление элементами */
+            justify-content: space-between; /* Пробел между элементами */
+            align-items: center; /* Выравнивание по центру */
+            padding: 10px 20px; /* Отступы */
+        }
+        .navbar-brand {
+            margin-left: 1%;
+            color: white; /* Цвет текста для ссылок */
+            font-weight: bold; /* Жирный текст */
+            font-size: 120%;
+        }
+        .custom-section {
+            position: relative; /* Для правильного позиционирования дочерних элементов */
+            height: 100%; /* Занимает 60% высоты страницы */
+            background-color: #191c1f; /* Черный фон */
+            color: #fff; /* Белый текст */
+            display: flex; /* Для центрирования содержимого */
+            justify-content: center;
+            align-items: flex-end; /* Прижимаем к низу */
+            padding-bottom: 20px; /* Отступ снизу для кнопок */
+            transition: height 0.4s ease; /* Плавный переход для изменения высоты */
+        }
+        .custom-div {
+            background-color: #191c1f;
+            height: 0%; /* Занимает 40% высоты страницы */
+            display: flex; /* Для горизонтального распределения */
+            flex-direction: row; /* Горизонтальная ориентация */
+            width: 100%;
+            transition: height 0.4s ease; /* Плавный переход для изменения высоты */
+        }
+        .div-left, .div-center {
+            background-color: #343a40; /* Белый фон */
+            border-radius: 10px; /* Закругление углов */
+            margin: 5px; /* Отступы */
+
+        }
+        .div-left {
+            display: flex;
+            flex-direction: column;
+            width: 10%; /* Занимает 10% ширины */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .button-switch {
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border-radius: 20px; /* Закругление углов */
+            padding: 15px;
+            border: none;
+            background-color: #007bff; /* Стандартный цвет кнопки */
+            color: white;
+            font-size: 150%;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s; /* Плавный переход */
+        }
+        .button-switch.active {
+            transform: scale(0.9);
+            background-color: #4da3ff; /* Цвет активной кнопки */
+        }
+        .div-center {
+            width: 90%; /* Занимает 70% ширины */
+            display: flex;
+            flex-direction: column; /* Вертикальное распределение */
+        }
+        .div-center-top {
+            height: 83%; /* Занимает 83% высоты центрального блока */
+            background-color: white; /* Белый фон */
+            border-radius: 10px; /* Закругление углов */
+            margin: 5px; /* Отступы */
+        }
+        .div-center-bottom {
+            height: 17%; /* Занимает 17% высоты центрального блока */
+            margin: 5px; /* Отступы */
+            width: 100%;
+        }
+        .input-field {
+            width: 87.3%; /* Занимает 100% доступного пространства */
+            border: none; /* Без рамки */
+            outline: none; /* Убираем обводку */
+            height: 100%; /* Занимает 17% высоты центрального блока */
+            background-color: white; /* Белый фон */
+            border-radius: 10px; /* Закругление углов */
+            padding-left: 1%;
+            font-size: 130%;
+        }
+        .button-done {
+            margin-left: 5px;
+            margin-bottom: 5px;
+            width: 10%;
+            height: 100%;
+            border: none; /* Без рамки */
+            background-color: #007bff; /* Белый фон */
+            border-radius: 20px; /* Закругление углов */
+            color: white; /* Цвет текста для ссылок */
+            font-weight: bold; /* Жирный текст */
+            transition: background-color 0.3s, transform 0.1s; /* Плавный переход */
+            cursor: pointer; /* Указатель при наведении */
+        }
+        .button-done:active {
+            transform: scale(0.95); /* Уменьшаем размер кнопки при нажатии */
+            background-color: #0056b3; /* Темнее при нажатии */
+        }
+
+        .button-done:hover {
+            background-color: #0056b3; /* Темный цвет при наведении */
+        }
+        .button-container {
+            text-align: center; /* Центрирование текста */
+            vertical-align:bottom;
+            transition: opacity 0.7s ease;
+            font-size: 150%;
+        }
+        .circle-buttons {
+            display: flex;
+            justify-content: space-between; /* Уменьшение расстояния между кнопками */
+            width: 40%; /* Поменяйте по желанию */
+            opacity: 0;
+            transition: opacity 0.7s ease;
+            margin-top: 10px; /* Отступ сверху для кнопок */
+        }
+        .button-container:hover .circle-buttons {
+            opacity: 1;
+        }
+        .circle-button {
+            width: 40px; /* Фиксированная ширина */
+            height: 40px; /* Фиксированная высота */
+            border-radius: 50%;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background 0.7s ease;
+            margin: 0 5px; /* Уменьшение расстояния между кнопками */
+            font-size: 50%;
+        }
+        .circle-button:hover {
+            background: #0056b3;
+        }
+        .circle-button:active {
+            transform: scale(0.95); /* Уменьшаем размер кнопки при нажатии */
+            background-color: #0056b3; /* Темнее при нажатии */
+        }
+        /* Текст опции перед наведением */
+        .button-container::before {
+            opacity: 1; /* Текст опции */
+            color: white; /* Цвет текста */
+            font-size: 1.5em; /* Размер текста */
+            display: block; /* Блок для центрирования */
+        }
+        .button-container:hover::before {
+            opacity: 0; /* Скрытие текста на наведении */
+        }
+    </style>
+    <script>
+        function changeButtonState(clickedButton) {
+            if (clickedButton.classList.contains('active')) {
+                return; // Выходим из функции, если кнопка уже активна
+            }
+
+            const buttons = document.querySelectorAll('.button-switch');
+
+            buttons.forEach(button => {
+                if (button === clickedButton) {
+                    button.classList.toggle('active'); // Меняем состояние нажатой кнопки
+                } else {
+                    button.classList.remove('active'); // Сбрасываем состояние остальных кнопок
+                }
+            });
+        }
+
+        function hidePanel() {
+            const customDiv = document.querySelector('.custom-div');
+            const customSection = document.querySelector('.custom-section');
+
+            if (customDiv.style.height === '0%' || customDiv.style.height === '') {
+                // Если custom-div скрыт, открываем его
+                customDiv.style.height = '30%';
+                customSection.style.height = '70%';
+            } else {
+                // Если custom-div открыт, скрываем его
+                customDiv.style.height = '0%';
+                customSection.style.height = '100%';
+            }
+        }
+
+    </script>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="navbar-brand" th:text="${title}"></div>
+    </div>
+</header>
+<main>
+    <section class="custom-section">
+        <div class="button-container">
+            <div class="circle-buttons">
+                <button class="circle-button" onclick="hidePanel()">HIDE</button>
+                <button class="circle-button">MUTE</button>
+                <button class="circle-button">CAM</button>
+                <button class="circle-button">EXIT</button>
+            </div>
+            ...
+        </div>
+    </section>
+    <div class="custom-div">
+        <div class="div-left">
+            <button class="button-switch" onclick="changeButtonState(this)">Чат</button>
+            <button class="button-switch" onclick="changeButtonState(this)">Linux</button>
+            <button class="button-switch" onclick="changeButtonState(this)">SQL</button>
+        </div>
+        <div class="div-center">
+            <div class="div-center-top"></div>
+            <div class="div-center-bottom">
+                <input type="text" class="input-field"  placeholder="Введите текст..." />
+                <button class="button-done">DONE</button>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

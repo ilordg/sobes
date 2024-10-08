@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SberSobes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            min-height: 50px;
+        }
+        .active {
+            font-weight: bold;
+        }
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>SberSobes</h1>
+
+<div id="output">Сообщения будут отображаться здесь.</div>
+
+<input type="text" id="inputField" placeholder="Введите ваше сообщение" />
+
+<div>
+    <button onclick="setMode('chat')" class="mode-button">Чат</button>
+    <button onclick="setMode('shell')" class="mode-button">Shell</button>
+    <button onclick="setMode('sql')" class="mode-button">Sql</button>
+    <button onclick="sendMessage()">Отправить</button>
+</div>
+
+<script src="../frontend/App.js"></script>
+</body>
+
+</html>
